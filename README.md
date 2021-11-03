@@ -4,7 +4,7 @@
 
 Install Node dependencies.
 
-    npm install
+    npm install --legacy-peer-deps
 
 ---
 
