@@ -155,6 +155,8 @@ module.exports = {
             filename: 'index.html',
             template: 'src/pug/index.pug',
             minify: false, // remove to minify html
+            inject: 'body',
+            scriptLoading: 'blocking'
         }),
         // new CopyPlugin({
         //     patterns: [
