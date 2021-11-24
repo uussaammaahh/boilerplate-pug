@@ -9,7 +9,11 @@
     "build": "npx cross-env NODE_ENV=production webpack --mode production",
     "serve": "npm run build && npx http-server dist"
   },
-  "author": "Usamah",
+  "author": {
+    "name": "Usamah",
+    "email": "usamah.kamil@gmail.com",
+    "url": "https://usamah.in"
+  },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",

@@ -7,17 +7,19 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const yourWebsiteLinkHere = './';
 const devMode = process.env.NODE_ENV === 'development';
-const port = 8080;
-const publicPath = devMode ? `http://localhost:${port}/` : yourWebsiteLinkHere;
+const host = `http://localhost`;
+const port = 1993;
+const publicPath = devMode ? `${host}:${port}/` : yourWebsiteLinkHere;
 const outputDir = 'dist';
 
 module.exports = {
     devServer: {
+        port,
         static: {
             directory: path.join(__dirname, 'public'),
         },
         compress: true,
-        port
+        allowedHosts: 'all'
     },
     context: path.resolve(__dirname),
     devtool: devMode ? 'source-map' : false,
@@ -25,9 +27,8 @@ module.exports = {
         app: './src/app.js'
     },
     output: {
-        filename: (devMode ? '[name].js' : '[name].bundle-[hash].js'),
-        path: path.join(__dirname, outputDir),
-        publicPath: publicPath
+        filename: './assets/js/' + (devMode ? '[name].js' : '[name].bundle.js'),
+        path: path.join(__dirname, outputDir)
     },
     module: {
         rules: [
@@ -58,8 +59,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     name: 'fonts/[name].[ext]',
-                    publicPath: publicPath,
-                    outputPath: '/',
+                    outputPath: './assets/',
                     limit: false
                 }
             },
@@ -68,10 +68,9 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     name: 'images/[name].[ext]',
-                    publicPath: publicPath,
-                    outputPath: '/',
+                    outputPath: './assets/',
                     limit: 1024,
-                    esModule: false,
+                    esModule: false
                 }
             }, {
                 test: /\.svg$/,
@@ -84,10 +83,9 @@ module.exports = {
                         return 'vectors/[name].[ext]';
                     },
                     context: 'src',
-                    publicPath: publicPath,
-                    outputPath: '/',
+                    outputPath: './assets/',
                     limit: 2 * 1024, //2KB
-                    noquotes: true,
+                    noquotes: true
                 }
             }, {
                 test: /\.(sa|sc|c)ss$/,
@@ -130,8 +128,8 @@ module.exports = {
                     loader: 'pug-loader',
                     options: {
                         pretty: true
-                    },
-                },]
+                    }
+                }]
             }]
     },
     resolve: {
@@ -149,7 +147,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: (devMode ? '[name].css' : '[name].bundle-[hash].css')
+            filename: './assets/css/' + (devMode ? '[name].css' : '[name].bundle.css')
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
