@@ -1,5 +1,5 @@
 // Primary Colors
-$themeColor: #FF8E4C;
+$themeColor: #ff8e4c;
 $themeColorSecondary: #053c6d;
 
 // Secondary Colors
@@ -18,5 +18,5 @@ $bold: bold;
 // Mixins
 $baseSize: 16;
 @function size($target, $context: $baseSize) {
-    @return ($target / $context) * 1em;
+	@return calc($target / $context) * 1em;
 }
